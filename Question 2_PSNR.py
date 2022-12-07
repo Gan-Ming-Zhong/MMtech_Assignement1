@@ -3,6 +3,7 @@ import cv2
 import math
 import imageio
 from matplotlib import pyplot as plt
+path = 'C:/Users/User/Desktop/method1_frame'
 
 def summarizeVideo(videoFile, duration):
     
@@ -34,6 +35,7 @@ def summarizeVideo(videoFile, duration):
                 count+=1
                 cv2.imwrite("frame%d.jpg" % count, frame)
                 framesList.append("frame%d.jpg" % count)
+                cv2.imwrite(os.path.join(path , 'frame%d.jpg'% count), frame)
                 
             
         else:
@@ -49,7 +51,7 @@ def summarizeVideo(videoFile, duration):
 
 fig=plt.figure()
 
-videoFile = 'Marvels Iron Man 3 Domestic Trailer 2 (OFFICIAL).mp4'
+videoFile = 'surveillance_5.mp4'
 framesList=summarizeVideo(videoFile,10) #10 minutes
 # Visualize the first 20 frames
 
