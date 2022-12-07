@@ -85,6 +85,7 @@ class ObjectDetection:
       return frame, results
     
 # Summarize video code
+path = 'C:/Users/User/Desktop/method2_frame'
 def summarizeVideo(videoFile, duration):
     
     cap = cv2.VideoCapture(videoFile)
@@ -110,6 +111,7 @@ def summarizeVideo(videoFile, duration):
                 cv2.imwrite("frame%d.jpg" % count, img_out)
                 #print(img_out)
                 framesList.append("frame%d.jpg" % count)
+                cv2.imwrite(os.path.join(path , 'frame%d.jpg'% count), frame)
                 count+=1
         else:
             break
