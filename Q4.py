@@ -1,3 +1,8 @@
+#After selected desired video to open, pre_load problem on line 21
+#but preload problem deleted then OK
+#https://www.youtube.com/watch?v=rTWUg3aevvI
+
+
 from tkinter import *
 from tkinter import font
 from tkinter.filedialog import askopenfile
@@ -18,7 +23,7 @@ def openFile():
         global filename
         filename= file.name
         global videoplayer
-        videoplayer= TkinterVideo(master=window, scaled=True, pre_load=False)
+        videoplayer= TkinterVideo(master=window, scaled=True)
         videoplayer.load(r"{}".format(filename))
         videoplayer.pack(expand=True, fill="both")
         videoplayer.play()
