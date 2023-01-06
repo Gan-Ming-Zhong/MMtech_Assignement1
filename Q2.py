@@ -112,7 +112,7 @@ def summarizeVideo(videoFile, duration):
             
             if "person" in obj_list:
                 current_no_person=obj_list.count("person")
-                if current_no_person!=previous_no_person:
+                if current_no_person>previous_no_person+1 or current_no_person<previous_no_person-1:
                     cv2.imwrite("frame%d.jpg" % count, img_out)
                     #print(img_out)
                     framesList.append("frame%d.jpg" % count)
@@ -133,7 +133,7 @@ def summarizeVideo(videoFile, duration):
 
 fig=plt.figure()
 
-videoFile = 'surveillance_5_short.mp4'
+videoFile = 'surveillance_5.mp4'
 framesList=summarizeVideo(videoFile,10) #10 minutes
 # Visualize the first 20 frames
 
