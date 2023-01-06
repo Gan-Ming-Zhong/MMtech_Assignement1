@@ -85,17 +85,20 @@ class ObjectDetection:
       return frame, results
     
 # Summarize video code
-path = 'C:/Users/User/Desktop/method2_frame'
+path = 'C:/Users/User/Desktop/output_frame'
 def summarizeVideo(videoFile, duration):
     
     cap = cv2.VideoCapture(videoFile)
     framesList=[]
     count=0
     obj = ObjectDetection()
+    #here
+    current_no_person=0
     
     while(cap.isOpened()):
         ret, frame = cap.read()
-
+        frame_ori=frame
+        
         if ret==True:
             img_out, results_out = obj.runDetection(frame)
             labels, cord = results_out
@@ -105,14 +108,18 @@ def summarizeVideo(videoFile, duration):
                 #out.write(frame)
             for i in range(n):
                 obj_list.append(obj.class_to_label(labels[i]))
+            previous_no_person=current_no_person
             
             if "person" in obj_list:
-            
-                cv2.imwrite("frame%d.jpg" % count, img_out)
-                #print(img_out)
-                framesList.append("frame%d.jpg" % count)
-                cv2.imwrite(os.path.join(path , 'frame%d.jpg'% count), frame)
-                count+=1
+                current_no_person=obj_list.count("person")
+                if current_no_person!=previous_no_person:
+                    cv2.imwrite("frame%d.jpg" % count, img_out)
+                    #print(img_out)
+                    framesList.append("frame%d.jpg" % count)
+                    #cv2.imwrite(os.path.join(path, 'frame_ori%d.jpg'% count), frame_ori)
+                    cv2.imwrite(os.path.join(path , 'frame%d.jpg'% count), img_out)
+                    count+=1 
+                
         else:
             break
             
@@ -126,7 +133,7 @@ def summarizeVideo(videoFile, duration):
 
 fig=plt.figure()
 
-videoFile = 'Marvels Iron Man 3 Domestic Trailer 2 (OFFICIAL).mp4'
+videoFile = 'surveillance_5_short.mp4'
 framesList=summarizeVideo(videoFile,10) #10 minutes
 # Visualize the first 20 frames
 
